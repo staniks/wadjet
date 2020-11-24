@@ -1,0 +1,5 @@
+add_executable(telemetry_server telemetry_common.hpp telemetry_server.cpp)
+target_link_libraries(telemetry_server PUBLIC wadjet)
+
+add_executable(telemetry_client telemetry_common.hpp telemetry_client.cpp)
+target_link_libraries(telemetry_client PUBLIC wadjet)
