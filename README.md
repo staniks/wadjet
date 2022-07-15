@@ -10,7 +10,8 @@ A modern, thin wrapper around UDP sockets.
 - supports IPV4 and IPV6 sockets (with dual stack)
 - stack-based design &mdash; no allocations
 - minimal reliance on exceptions &mdash; acquisition only
-- simplified errors with easy access to internal error codes of the underlying socket API
+- error handling inspired by [std::expected standard proposal](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p0323r10.html)
+- easy access to internal error codes of the underlying socket API
 
 ## Overview
 
