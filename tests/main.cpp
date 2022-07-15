@@ -60,13 +60,13 @@ void test_successful_send_receive(socket_protocol sender_protocol,
 
     // Send a simple message.
     constexpr std::string_view message = "hello there";
-    REQUIRE(sender.send(address, std::span(message)) == error_code::none);
+    REQUIRE(sender.send(address, std::span{message}) == error_code::none);
 
     // Allocate a buffer for the receiver.
     std::array<char, message.size()> recv_buffer;
 
     // Check if there are any packets waiting and attempt to process one.
-    auto result = receiver.recv(std::span(recv_buffer));
+    auto result = receiver.recv(std::span{recv_buffer});
     REQUIRE(result);
 
     // Sizes of sent and received data should match.

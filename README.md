@@ -173,7 +173,7 @@ The usage is as follows:
 
 ```C++
 std::array<char, 1024> buffer;
-auto result = socket.recv(std::span(buffer));
+auto result = socket.recv(std::span{buffer});
 if(result)
 {
     // Not very secure, but just an example :D

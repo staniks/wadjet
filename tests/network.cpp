@@ -50,7 +50,7 @@ TEST_CASE("socket address to string", "[socket_address]")
         auto address = socket_address::from_string(socket_protocol::ipv4, "127.0.0.1");
         REQUIRE(address);
 
-        auto result = address->to_string(std::span(buffer));
+        auto result = address->to_string(std::span{buffer});
         REQUIRE(result);
         CHECK(*result == "127.0.0.1");
     }
@@ -60,7 +60,7 @@ TEST_CASE("socket address to string", "[socket_address]")
         auto address = socket_address::from_string(socket_protocol::ipv6, "::ffff:127.0.0.1");
         REQUIRE(address);
 
-        auto result = address->to_string(std::span(buffer));
+        auto result = address->to_string(std::span{buffer});
         REQUIRE(result);
         CHECK(*result == "::ffff:127.0.0.1");
     }
@@ -77,7 +77,7 @@ TEST_CASE("socket address copy", "[socket_address]")
 
         socket_address new_address = *address;
 
-        auto ip_string = new_address.to_string(std::span(buffer));
+        auto ip_string = new_address.to_string(std::span{buffer});
         REQUIRE(ip_string);
         CHECK(*ip_string == "127.0.0.1");
     }
@@ -89,7 +89,7 @@ TEST_CASE("socket address copy", "[socket_address]")
 
         socket_address new_address = *address;
 
-        auto ip_string = new_address.to_string(std::span(buffer));
+        auto ip_string = new_address.to_string(std::span{buffer});
         REQUIRE(ip_string);
         CHECK(*ip_string == "::ffff:127.0.0.1");
     }
@@ -106,7 +106,7 @@ TEST_CASE("socket address move", "[socket_address]")
 
         socket_address new_address = std::move(*address);
 
-        auto ip_string = new_address.to_string(std::span(buffer));
+        auto ip_string = new_address.to_string(std::span{buffer});
         REQUIRE(ip_string);
         CHECK(*ip_string == "127.0.0.1");
     }
@@ -118,7 +118,7 @@ TEST_CASE("socket address move", "[socket_address]")
 
         socket_address new_address = std::move(*address);
 
-        auto ip_string = new_address.to_string(std::span(buffer));
+        auto ip_string = new_address.to_string(std::span{buffer});
         REQUIRE(ip_string);
         CHECK(*ip_string == "::ffff:127.0.0.1");
     }
