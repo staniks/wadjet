@@ -4,6 +4,8 @@ A modern, thin wrapper around UDP sockets.
 
 ![example workflow](https://github.com/staniks/wadjet/actions/workflows/build.yml/badge.svg)    ![example workflow](https://github.com/staniks/wadjet/actions/workflows/tests.yml/badge.svg)
 
+_See [GitHub Actions tab](https://github.com/staniks/wadjet/actions) for automated builds, tests and artifacts._
+
 ## Features
 
 - thin wrapper around Winsock/POSIX UDP sockets
