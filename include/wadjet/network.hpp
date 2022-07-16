@@ -38,7 +38,7 @@ public:
     socket_address(uint32_t ipv4, uint16_t port) noexcept;
 
     // Create an address from raw IPV6 array and port. Port is in host order.
-    socket_address(std::span<const uint8_t> ipv6, uint16_t port) noexcept; // TODO: SPAN
+    socket_address(std::span<const uint8_t> ipv6, uint16_t port) noexcept;
 
     // Create an address from string on specified port. Throws on failure.
     socket_address(socket_protocol protocol, const char* address, uint16_t port);
