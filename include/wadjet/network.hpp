@@ -34,6 +34,10 @@ class WADJET_DLL socket_address
 public:
     inline static constexpr size_t ipv6_size = 16;
 
+    // POSIX defines INET6_ADDRSTRLEN - length of string for of an IPV6. It's 45 bytes + 1 byte for
+    // the terminating null character.
+    inline static constexpr size_t ipv6_string_size = 45 + 1;
+
     // Create an address from raw IPV4 and port. IPV4 and port are in host order.
     socket_address(uint32_t ipv4, uint16_t port) noexcept;
 
@@ -67,8 +71,9 @@ public:
     static socket_address loopback(socket_protocol protocol) noexcept;
 
     // Attempt to convert the address to a string representation. The user must provide a buffer
-    // large enough to store an IPV6 address (64 bytes + 1 byte for null character). Returns a
-    // string view into the buffer representing the resulting address, or an error.
+    // large enough to store an IPV6 address (see socket_address::ipv6_string_size), regardless of
+    // protocol. Returns a string view into the buffer representing the resulting address, or an
+    // error.
     expected<std::string_view, error> to_string(std::span<char> buffer) const noexcept;
 
     uint16_t port_host_order() const noexcept;
