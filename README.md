@@ -218,7 +218,7 @@ make
 Planned improvements include, but are not limited to:
 
 - introduce something like `string_view` for null-terminated strings to avoid passing `const char*` around
-- think about enforcing minimal span length for some functions (e.g. `socket_address::to_string)
+- think about enforcing minimal span length for some functions (e.g. `socket_address::to_string`)
 - improve test coverage
 - check potential thread-safety issues once need emerges
 - provide more socket features (expose file descriptor flags and such, rather than setting them internally)
