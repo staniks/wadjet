@@ -22,19 +22,19 @@ socket_address::socket_address(std::span<const uint8_t> address, uint16_t port) 
     std::memcpy(ipv6_m, address.data(), address.size());
 }
 
-socket_address::socket_address(socket_protocol protocol, const char* address_string) :
+socket_address::socket_address(socket_protocol protocol, zstring_view address_string) :
     socket_address(protocol, address_string, 0)
 {
 }
 
 socket_address::socket_address(socket_protocol protocol,
-                               const char*     address_string,
+                               zstring_view    address_string,
                                uint16_t        port) :
     port_m(htons(port)), protocol_m(socket_protocol::ipv6)
 {
     if(protocol == socket_protocol::ipv6)
     {
-        if(::inet_pton(AF_INET6, address_string, (void*)&ipv6_m) != 1)
+        if(::inet_pton(AF_INET6, address_string.data(), (void*)&ipv6_m) != 1)
             throw exception{error_code::socket_address_conversion_fail,
                             detail::get_socket_api_error()};
     }
@@ -44,26 +44,26 @@ socket_address::socket_address(socket_protocol protocol,
         ipv4_m.padding_zeroes_2 = 0;
         ipv4_m.ffff             = 0xffff;
 
-        if(::inet_pton(AF_INET, address_string, (void*)&ipv4_m.ip) != 1)
+        if(::inet_pton(AF_INET, address_string.data(), (void*)&ipv4_m.ip) != 1)
             throw exception{error_code::socket_address_conversion_fail,
                             detail::get_socket_api_error()};
     }
 }
 
 expected<socket_address, error> socket_address::from_string(socket_protocol protocol,
-                                                            const char*     address) noexcept
+                                                            zstring_view    address) noexcept
 {
     return from_string(protocol, address, 0);
 }
 
 expected<socket_address, error> socket_address::from_string(socket_protocol protocol,
-                                                            const char*     address_string,
+                                                            zstring_view    address_string,
                                                             uint16_t        port) noexcept
 {
     if(protocol == socket_protocol::ipv6)
     {
         uint8_t address[ipv6_size];
-        if(::inet_pton(AF_INET6, address_string, (void*)&address) != 1)
+        if(::inet_pton(AF_INET6, address_string.data(), (void*)&address) != 1)
             return make_unexpected<error>(error_code::socket_address_conversion_fail,
                                           detail::get_socket_api_error());
 
@@ -73,7 +73,7 @@ expected<socket_address, error> socket_address::from_string(socket_protocol prot
     else
     {
         uint32_t network_order_address;
-        if(::inet_pton(AF_INET, address_string, (void*)&network_order_address) != 1)
+        if(::inet_pton(AF_INET, address_string.data(), (void*)&network_order_address) != 1)
             return make_unexpected<error>(error_code::socket_address_conversion_fail,
                                           detail::get_socket_api_error());
 

@@ -2,6 +2,8 @@
 
 #include <wadjet/detail/linking.hpp>
 
+#include <wadjet/zstring_view.hpp>
+
 #include <cassert>
 #include <stdexcept>
 
@@ -49,7 +51,7 @@ struct WADJET_DLL error
     constexpr error_code operator*() const noexcept;
 
     // Returns a human-readable error code description.
-    const char* description() const noexcept;
+    zstring_view description() const noexcept;
 
     // Wadjet error code.
     const error_code code;

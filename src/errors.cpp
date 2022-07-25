@@ -8,7 +8,7 @@
 
 namespace wadjet {
 namespace detail {
-inline const std::map<error_code, const char*> error_descriptions = {
+inline const std::map<error_code, zstring_view> error_descriptions = {
     {error_code::socket_api_initialization_fail, "failed to initialize socket API"},
     {error_code::socket_creation_fail, "failed to create socket"},
     {error_code::socket_dual_stack_unavailable, "failed to create dual-stack IPV6 socket"},
@@ -26,7 +26,7 @@ inline const std::map<error_code, const char*> error_descriptions = {
 // Error implementation.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-const char* error::description() const noexcept
+zstring_view error::description() const noexcept
 {
     auto it = detail::error_descriptions.find(code);
     if(it != detail::error_descriptions.end())
@@ -56,7 +56,7 @@ wadjet::error exception::error() const noexcept
 
 const char* exception::what() const noexcept
 {
-    return error_m.description();
+    return error_m.description().data();
 }
 
 } // namespace wadjet

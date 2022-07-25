@@ -45,18 +45,18 @@ public:
     socket_address(std::span<const uint8_t> ipv6, uint16_t port) noexcept;
 
     // Create an address from string on specified port. Throws on failure.
-    socket_address(socket_protocol protocol, const char* address, uint16_t port);
+    socket_address(socket_protocol protocol, zstring_view address, uint16_t port);
 
     // Create an address from string. Port is zero. Throws on failure.
-    socket_address(socket_protocol protocol, const char* address);
+    socket_address(socket_protocol protocol, zstring_view address);
 
     // Create an address from string on specified port.
     static expected<socket_address, error>
-    from_string(socket_protocol protocol, const char* address, uint16_t port) noexcept;
+    from_string(socket_protocol protocol, zstring_view address, uint16_t port) noexcept;
 
     // Create an address from string. Port is zero.
     static expected<socket_address, error> from_string(socket_protocol protocol,
-                                                       const char*     address) noexcept;
+                                                       zstring_view    address) noexcept;
 
     // Create an address corresponding to all available interfaces, with the specified port.
     static socket_address any(socket_protocol protocol, uint16_t port) noexcept;
